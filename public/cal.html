@@ -1,0 +1,78 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#calNav" aria-controls="calNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="calNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="/app">My Map</a></li>
+            <li class="nav-item"> <div id="profile"  class="nav-link" style=".nav-link:hover{color: rgba(255,255,255,.5);}"></div></li>
+        </ul>
+        <form action="/users/logout" method="get" class="form-inline my-2 my-md-0 float-right">
+            <button class="btn btn-light" type="submit" onclick="caches.open('dynamic-v2').then(function(cache) {
+  cache.delete('/users/user');
+  cache.delete('/users/auth/google');
+  cache.delete('/users/api/cal');
+  cache.delete('/calandar');
+  cache.delete('/app');
+})">logout</button>
+        </form>
+
+
+    </div>
+
+</nav>
+<div class="container">
+<div id="cal-evt" class="row">
+</div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>
+    if ("serviceWorker" in navigator){
+        navigator.serviceWorker.register("/sw.js").then(
+            function (reg) {
+                console.log("WORKING ",reg)
+            }
+        ).catch(function (err) {
+            console.log("NOT WORKING ",err)
+        })
+    }
+
+
+
+    fetch('users/api/cal').then(res => {
+            return res.json();
+        }).then( data => {
+            showData(data);
+            console.log(data)
+        })
+        .catch(err => {
+            console.log('error: ' + err);
+        });
+
+    function showData(data) {
+
+        for (var i = 0; i < data.length; i++) {
+            var div = document.createElement("div");
+            div.classList.add("col-sm")
+
+                div.innerHTML ="<div class='card'><div class='card-body'><div class='h3'> " + "Title:" + data[i].summary + " </div><br><br>" +
+                    "Duration: <br> Start: " + data[i].start.dateTime + " <br> End: " + data[i].end.dateTime + "<br><br>" +
+                    "<strong>Location: " + data[i].location + "</strong><br><br>" +
+                    "Description: " + data[i].description + "<br><br></div></div>";
+
+            document.getElementById("cal-evt").appendChild(div);
+        }
+    }
+</script>
+</body>
+</html>

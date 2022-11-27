@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="acb4ccc0-5bd3-4589-9d41-2bccd33a63dc" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1UqK8GsAXcyttAGHmPTuYdjjaLR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.16.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ryan Love\WebstormProjects\untitled\public\javascripts" />
+      <recent name="C:\Users\Ryan Love\WebstormProjects\untitled" />
+      <recent name="C:\Users\Ryan Love\WebstormProjects\untitled\bin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ryan Love\WebstormProjects\untitled" />
+      <recent name="C:\Users\Ryan Love\WebstormProjects\untitled\routes" />
+      <recent name="C:\Users\Ryan Love\WebstormProjects\untitled\public" />
+      <recent name="C:\Users\Ryan Love\WebstormProjects\untitled\public\javascripts" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="acb4ccc0-5bd3-4589-9d41-2bccd33a63dc" name="Default Changelist" comment="" />
+      <created>1576078523800</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576078523800</updated>
+      <workItem from="1576078527447" duration="44179000" />
+      <workItem from="1576750183708" duration="254000" />
+      <workItem from="1576779505553" duration="2613000" />
+      <workItem from="1579010111894" duration="42829000" />
+      <workItem from="1579686077247" duration="13051000" />
+      <workItem from="1580216113326" duration="12419000" />
+      <workItem from="1580808565729" duration="54395000" />
+      <workItem from="1581250796037" duration="45394000" />
+      <workItem from="1582031178208" duration="16459000" />
+      <workItem from="1582880717467" duration="34000" />
+      <workItem from="1582928840445" duration="40000" />
+      <workItem from="1587466723558" duration="21000" />
+      <workItem from="1587466898814" duration="726000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="447" y="69" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582216307380">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="447" y="69" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/0.-1200.1920.1160@0.0.1536.824" timestamp="1582216307380" />
+    <state x="862" y="100" width="581" height="630" key="DiffContextDialog" timestamp="1581269722988">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="862" y="100" width="581" height="630" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1581269722988" />
+    <state x="772" y="169" key="FileChooserDialogImpl" timestamp="1582216298223">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="772" y="169" key="FileChooserDialogImpl/0.0.1536.824/0.-1200.1920.1160@0.0.1536.824" timestamp="1582216298223" />
+    <state width="756" height="183" key="GridCell.Tab.0.bottom" timestamp="1592918422801">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="183" key="GridCell.Tab.0.bottom/0.0.1536.824/0.-1200.1920.1160@0.0.1536.824" timestamp="1582216216980" />
+    <state width="756" height="183" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592918422801" />
+    <state width="756" height="183" key="GridCell.Tab.0.center" timestamp="1592918422801">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="183" key="GridCell.Tab.0.center/0.0.1536.824/0.-1200.1920.1160@0.0.1536.824" timestamp="1582216216980" />
+    <state width="756" height="183" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592918422801" />
+    <state width="756" height="183" key="GridCell.Tab.0.left" timestamp="1592918422801">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="183" key="GridCell.Tab.0.left/0.0.1536.824/0.-1200.1920.1160@0.0.1536.824" timestamp="1582216216980" />
+    <state width="756" height="183" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592918422801" />
+    <state width="756" height="183" key="GridCell.Tab.0.right" timestamp="1592918422801">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="183" key="GridCell.Tab.0.right/0.0.1536.824/0.-1200.1920.1160@0.0.1536.824" timestamp="1582216216980" />
+    <state width="756" height="183" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592918422801" />
+    <state x="424" y="130" width="581" height="630" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1581677288716">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="424" y="130" width="581" height="630" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1581677288716" />
+    <state x="252" y="89" width="979" height="630" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1581677288716">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="252" y="89" width="979" height="630" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1581677288716" />
+    <state x="241" y="145" width="1200" height="584" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1581595051218">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="241" y="145" width="1200" height="584" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1581595051218" />
+    <state x="808" y="189" key="run.anything.popup" timestamp="1580998689497">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="808" y="189" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1580998689497" />
+    <state x="814" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1582111513776">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="814" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1582111513776" />
+  </component>
+</project>

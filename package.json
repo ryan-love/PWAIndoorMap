@@ -1,0 +1,27 @@
+{
+  "name": "untitled",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cancan": "^3.1.0",
+    "cookie-parser": "^1.4.4",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-es6-template-engine": "^2.2.1",
+    "express-session": "^1.17.0",
+    "geojson-path-finder": "^1.5.2",
+    "googleapis": "^39.2.0",
+    "mongoose": "^5.8.7",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "wrld.js": "^0.1.2129"
+  }
+}

@@ -1,0 +1,479 @@
+<html>
+
+<head>
+  <title>PWA Map</title>
+
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="/img/icon-96x96.png">
+  <meta name="apple-mobile-web-app-status-bar" content="#FFFFFF">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFFFFF">
+  <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
+  <link href="stylesheets/wrld.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.1/leaflet.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="javascripts/indoor_control.js"></script>
+
+
+
+<style>
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  .leaflet-bottom{
+    display: none;
+  }
+ #wrld-indoor-map-watermark0{
+   display: none;
+ }
+  body{
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="mainNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a class="nav-link" href="/calandar">My Calendar <span class="badge badge-secondary">Google Sign-in Required</span></a></li>
+      <li class="nav-item"> <div id="profile" class="nav-link" style=".nav-link:hover{color: rgba(255,255,255,.5);}"></div></li>
+    </ul>
+      <form action="/users/logout" method="get" class="form-inline my-2 my-md-0 float-right">
+        <button class="btn btn-light" type="submit" onclick=" caches.open('dynamic-v2').then(function(cache) {
+  cache.delete('/users/user');
+  cache.delete('/app')
+}) ">logout</button>
+      </form>
+
+
+  </div>
+
+</nav>
+<div class="container">
+
+<div id="status"></div>
+<div style="position: relative">
+  <div id="overlay" class="wrld-widget-container"></div>
+<div id="map"></div>
+</div>
+
+<script>
+  fetch('users/user').then(res => {
+      return res.json();
+    }).then( data => {
+        document.getElementById("profile").innerHTML ="Name: "+ data.name + " E-Mail: " + data.email + " Username: " + data.username
+      console.log(data)
+    }).catch(err => {
+              console.log('error: ' + err);
+            });
+
+  
+
+
+  if ("serviceWorker" in navigator){
+    navigator.serviceWorker.register("/sw.js").then(
+            function (reg) {
+              console.log("WORKING ",reg)
+            }
+    ).catch(function (err) {
+      console.log("NOT WORKING ",err)
+    })
+  }
+
+  const map = L.Wrld.map("map", "5beacb8fb3740737c06ceb57d9e9ab0d", {
+    environmentThemesManifest: "https://webgl-cdn1.eegeo.com/mobile-themes-new/v1141/ambientwhite/web.manifest.bin",
+    center: [53.250008, -2.122933],
+    zoom: 30,
+    coverageTreeManifest:"https://webgl-cdn1.wrld3d.com/chunk/indoor_maps/api_requests/EIM-d4169015-16c0-4c77-b3d0-f1124c68ac69_2020_01_15_22_34_52/webgl_manifest.bin.gz",
+    indoorsEnabled: true,
+    trafficEnabled: false,
+    frameRateThrottleWhenIdleEnabled: true,
+    throttledTargetFrameIntervalMilliseconds: 500,
+    idleSecondsBeforeFrameRateThrottle: 15.0
+  });
+  const indoorControl = new WrldIndoorControl("overlay", map);
+  const IndoorMapId = "EIM-d4169015-16c0-4c77-b3d0-f1124c68ac69";
+  const myLocation = L.latLng([53.249985974230881 ,-2.123000458524488 ]);
+
+
+  function initLoc() {
+    L.circle(
+            [53.249985974230881, -2.123000458524488],
+            {
+              radius: 1.0,
+              color: "#0000ff",
+              indoorMapId: "EIM-d4169015-16c0-4c77-b3d0-f1124c68ac69",
+              indoorMapFloorId: 0
+            }
+    ).addTo(map);
+  }
+
+
+  window.addEventListener("load", () => {
+    function handleNetworkChange(event) {
+      if (navigator.onLine) {
+        document.getElementById("status").innerHTML = "Your connection is online &#9989; "
+      } else {
+        document.getElementById("status").innerHTML = "Your connection is offline &#9940; "
+      }
+    }
+    window.addEventListener("online", handleNetworkChange);
+    window.addEventListener("offline", handleNetworkChange);
+  });
+
+
+  function livingPath() {
+    L.polyline([
+              [53.249981761639425, -2.122997425316242],
+              [53.249982727424204, -2.122959204336638]
+
+            ],
+            {
+              weight: 5,
+              color: "#0000ff",
+              indoorMapId: IndoorMapId,
+              indoorMapFloorId: 0
+            }
+    ).addTo(map)
+  }
+
+  function dinningPath() {
+    L.polyline([
+              [53.249981761639425, -2.122997425316242],
+              [53.249982727424204 , -2.122959204336638],
+              [53.249978676107105, -2.122958938803333],
+              [53.249979073295073, -2.12292773863996 ]
+
+            ],
+            {
+              weight: 5,
+              color: "#0000ff",
+              indoorMapId: IndoorMapId,
+              indoorMapFloorId: 0
+            }
+    ).addTo(map);
+  }
+
+  function kitchenPath() {
+    L.polyline([
+              [53.249981761639425, -2.122997425316242],
+              [53.249982727424204 , -2.122959204336638],
+              [53.249978676107105, -2.122958938803333],
+              [53.249979073295073, -2.12292773863996 ],
+              [53.249979073295073,-2.122928004173265 ],
+              [53.249958260640568,-2.122922826273812 ],
+              [53.249958616421068,-2.12290981582161]
+            ],
+            {
+              weight: 5,
+              color: "#0000ff",
+              indoorMapId: IndoorMapId,
+              indoorMapFloorId: 0
+            }
+    ).addTo(map);
+  }
+
+  function bed1Path() {
+    L.polyline([[53.249981761639425,-2.122997425316242,0],
+              [53.249982727424204,-2.122959204336638,0],
+              [53.249978676107105,-2.122958938803333,0],
+              [53.249979073295073,-2.12292773863996, 0],
+              [53.249982422254192,-2.122923769293647,0]
+            ],
+            {
+              weight: 5,
+              color: "#0000ff",
+              indoorMapId: IndoorMapId,
+              indoorMapFloorId: 0
+            }
+    ).addTo(map);
+    L.polyline([
+              [53.249982246746043,-2.122947040342952,1],
+              [53.249982623206783,-2.122963328746063,1]],
+            {
+              weight: 5,
+              color: "#0000ff",
+              indoorMapId: IndoorMapId,
+              indoorMapFloorId: 1
+            }
+    ).addTo(map);
+
+  }
+
+  function bathroomPath() {
+    L.polyline([[53.249981761639425,-2.122997425316242,0],
+              [53.249982727424204,-2.122959204336638,0],
+              [53.249978676107105,-2.122958938803333,0],
+              [53.249979073295073,-2.12292773863996, 0],
+              [53.249982422254192,-2.122923769293647,0]
+            ],
+            {
+              weight: 5,
+              color: "#0000ff",
+              indoorMapId: IndoorMapId,
+              indoorMapFloorId: 0
+            }
+    ).addTo(map);
+    L.polyline([
+              [53.249982246746043,-2.122947040342952],
+              [53.249982623206783,-2.122963328746063],
+              [53.249982608267821, -2.122956549003585],
+              [53.249971328129021, -2.122955354103711],
+              [53.249971371118527, -2.1229504852155],
+              [53.249966934045176, -2.122949777726947]
+
+            ],
+            {
+              weight: 5,
+              color: "#0000ff",
+              indoorMapId: IndoorMapId,
+              indoorMapFloorId: 1
+            }
+    ).addTo(map);
+  }
+
+  function clearPoly() {
+    map.eachLayer(function (first = [[53.249982246746043,-2.122947040342952],
+                              [53.249982623206783,-2.122963328746063],
+                              [53.249982608267821, -2.122956549003585],
+                              [53.249971328129021, -2.122955354103711],
+                              [53.249971371118527, -2.1229504852155],
+                              [53.249966934045176, -2.122949777726947],
+                              [53.249971491990486 , -2.122950213042551],
+                              [53.249972948908571, -2.122916043102116 ],
+                              [53.249983720394027, -2.122917648374358 ]],
+                            full = [
+                              [53.249981761639425, -2.122997425316242],
+                              [53.249982727424204 , -2.122959204336638],
+                              [53.249978676107105, -2.122958938803333],
+                              [53.249979073295073, -2.12292773863996 ],
+                              [53.249982422254192 ,-2.122923769293647 ],
+                              [53.249979073295073,-2.122928004173265 ],
+                              [53.249958260640568,-2.122922826273812 ],
+                              [53.249958616421068,-2.12290981582161]
+                            ]
+
+    ) {
+
+
+      map.removeLayer(first);
+      map.removeLayer(full);
+
+
+    });
+
+    const loc = L.circle(
+            [53.249985974230881 ,-2.123000458524488 ],
+            {
+              radius: 1.0,
+              color: '#0000ff',
+              indoorMapId: 'EIM-d4169015-16c0-4c77-b3d0-f1124c68ac69',
+              indoorMapFloorId: 0
+            })
+    map.addLayer(loc)
+  }
+
+  const nodes = {
+    "A":{coord: [
+        53.249978995334189,-2.122999769645896
+      ]},
+    "B":{coord:[
+        53.249979597659845,-2.122990075892348
+      ]},
+    "C":{coord: [
+        53.249952009597664,-2.122986832055905
+      ]},
+    "D":{coord:[
+        53.249954782268034,-2.122943735371725
+      ]},
+    "E":{coord:[
+        53.249981261261006,-2.122946747505565
+      ]},
+    "F":{coord: [
+        53.249981677161287,-2.122946284100359
+      ]},
+    "G":{coord: [
+        53.249985281630238,-2.122915931059352
+      ]},
+
+  };
+
+  const basicGraph = [
+    {start:"A",finish:"B",distance:1},
+    {start:"B",finish:"C",distance:3},
+    {start:"C",finish:"D",distance:3},
+    {start:"D",finish:"E",distance:3},
+    {start:"E",finish:"F",distance:3},
+    {start:"B",finish:"G",distance:10},
+    {start:"G",finish:"H",distance:10}
+
+
+  ];
+
+
+  const graph = readyGraph(basicGraph);
+  let start = "A";
+  let finish = "G";
+
+  let finish2="C"
+
+
+  const shortestPath = solve(graph,start,finish);
+  const shortestPath2 = solve(graph,start,finish2);
+
+  function showPath(start,path){
+    let lineCoords = [];
+    lineCoords.push(nodes[start].coord);
+
+    for(let i=0;i<path.length;i++){
+      const nodeName =path[i];
+      lineCoords.push(nodes[nodeName].coord);
+    }
+    L.polyline(lineCoords, {
+      weight: 5,
+      color: "#0000ff",
+      indoorMapId: IndoorMapId,
+      indoorMapFloorId: 0
+    }).addTo(map);
+    L.polyline([
+              [53.249982246746043,-2.122947040342952],
+              [53.249982623206783,-2.122963328746063],
+              [53.249982608267821, -2.122956549003585],
+              [53.249971328129021, -2.122955354103711],
+              [53.249971371118527, -2.1229504852155],
+              [53.249966934045176, -2.122949777726947]
+
+            ],
+            {
+              weight: 5,
+              color: "#0000ff",
+              indoorMapId: IndoorMapId,
+              indoorMapFloorId: 1
+            }
+    ).addTo(map);
+
+  }
+
+  function showPath2(start,path){
+    let lineCoords = [];
+    lineCoords.push(nodes[start].coord);
+
+    for(let i=0;i<path.length;i++){
+      const nodeName =path[i];
+      lineCoords.push(nodes[nodeName].coord);
+    }
+    L.polyline(lineCoords, {
+      weight: 5,
+      color: "#0000ff",
+      indoorMapId: IndoorMapId,
+      indoorMapFloorId: 0
+    }).addTo(map);
+
+
+  }
+
+  function solve(graph,s,f) {
+
+    let solutions = {};
+    solutions[s] = [];
+    solutions[s].dist = 0;
+    while(true) {
+      let parent = null;
+      let nearest = null;
+      let dist = Infinity;
+      for(let n in solutions) {
+        if(!solutions[n])
+          continue
+        let ndist = solutions[n].dist;
+        let adj = graph[n];
+        for(let a in adj) {
+          if(solutions[a])
+            continue;
+          let d = adj[a] + ndist;
+          if(d < dist) {
+            parent = solutions[n];
+            nearest = a;
+            dist = d;
+          }
+        }
+      }
+      if(dist === Infinity) {
+        break;
+      }
+      solutions[nearest] = parent.concat(nearest);
+      solutions[nearest].dist = dist;
+    }
+    let finish = solutions[f];
+    return {results:solutions,path:finish,distance:finish.dist};
+  }
+
+
+  function readyGraph(paths) {
+    let graph = {};
+    for(let i in paths){
+      let path = paths[i];
+      let start=path["start"];
+      let finish=path["finish"];
+      let distance=path["distance"];
+      if(typeof graph[start]=="undefined"){
+        graph[start]={};
+        graph[start][finish]=distance;
+      }else{
+        graph[start][finish]=distance;
+      }
+      if(typeof graph[finish]=="undefined"){
+        graph[finish]={};
+        graph[finish][start]=distance;
+      }else{
+        graph[finish][start]=distance;
+      }
+    }
+    return graph;
+  }
+
+  initLoc()
+</script>
+
+
+
+</div>
+<div class="navbar navbar-expand-md">
+<button class="btn btn-primary col-xl" onclick="clearPoly();livingPath()">Living</button>
+<button class="btn btn-primary col-xl" onclick="clearPoly();dinningPath()">Dinning</button>
+<button class="btn btn-primary col-xl" onclick="clearPoly();kitchenPath()">Kitchen</button>
+<button class="btn btn-primary col-xl" onclick="clearPoly();bed1Path()">Bed</button>
+<button class="btn btn-primary col-xl" onclick="clearPoly();bathroomPath()">Bath</button>
+<button class="btn btn-primary col" onclick="clearPoly()">Clear</button>
+<button class="btn btn-primary col-md" onclick="clearPoly();showPath(start,shortestPath.path)">Upstairs Dijk</button>
+<button class="btn btn-primary col-md" onclick="clearPoly();showPath2(start,shortestPath2.path)"> living Dijk</button>
+</div>
+
+</body>
+
+</html>
